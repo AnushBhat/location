@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+        #ipForm { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <div id="ipForm">
+        <h1>Welcome to the IP Address Location Finder</h1>
+        <p>Enter an IP address to find its location:</p>
+        <form action="/location" method="post">
+            <textarea id="ip_addresses" name="ip_addresses" rows="5" cols="30" placeholder="Enter up to 5 IP addresses separated by commas"></textarea><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('myCanvas') });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0xf0f0f0); // Set background color to light gray
+
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({ color: 0xffff00 }); // Yellow color
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        let angle = 0; // Initial angle for circular motion
+        const radius = 3; // Radius of the circular path
+
+        function animate() {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+
+            // Update cube's position for circular motion
+            cube.position.x = Math.cos(angle) * radius;
+            cube.position.y = Math.sin(angle) * radius;
+
+            angle += 0.01; // Increment angle for next frame
+
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
