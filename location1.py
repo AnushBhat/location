@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import ipinfo
 
-app = Flask(__name__, template_folder='C:\\Users\\ANUSH\\OneDrive\\Desktop\\location1\\template')
+app = Flask(__name__, template_folder='C:\\Users\\ANUSH\\OneDrive\\Desktop\\location-1\\template')
 
 @app.route('/')
 def login():
